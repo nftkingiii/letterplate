@@ -82,6 +82,10 @@ npm test
 
 Production: `npm run build`, then `npm start` serves the API and the built app.
 
+## How it was built
+
+With an AI coding agent (Claude Code). What the AI wrote, what the builder decided, how each claim was checked and where the AI got things wrong are in [AI_USAGE.md](AI_USAGE.md).
+
 ## Credits
 
 - Scaffolded with [`create-qorechain-dapp`](https://www.npmjs.com/package/create-qorechain-dapp) 0.14.0 (`fullstack-web` template, Apache-2.0).
