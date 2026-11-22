@@ -1,14 +1,17 @@
 {
   "name": "letterplate",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "A minimal Vite + React + TypeScript QoreChain dApp using @qorechain/sdk to read balances and tokenomics.",
+  "description": "Give any QoreChain account an address it can receive post-quantum sealed messages at, and check where to seal for any address.",
+  "license": "Apache-2.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "dev:web": "vite",
+    "dev:server": "node --watch server/index.mjs",
+    "build": "vite build",
+    "start": "node server/index.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test \"test/*.test.mjs\""
   },
   "dependencies": {
     "@qorechain/sdk": "^0.14.0",
@@ -16,10 +19,13 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.6.3",
-    "vite": "^5.4.0"
+    "vite": "^6.4.6"
+  },
+  "engines": {
+    "node": ">=22 <23"
   }
 }
