@@ -1,13 +1,21 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { Suspense, lazy, useEffect, useState, type FormEvent } from "react";
 import "./styles.css";
 import { listValidators, QOR_ADDRESS, resolveAddress, type Resolution, type Status, type Validators } from "./api";
+import { WalletButton } from "./WalletButton";
 
-type Tab = "check" | "validators";
+// The sealing flow carries the QoreChain SDK (about 2.7 MB): load it only when the tab is opened.
+const AddressView = lazy(() => import("./AddressView").then((m) => ({ default: m.AddressView })));
+
+type Tab = "check" | "address" | "validators";
 const TABS: { id: Tab; label: string }[] = [
   { id: "check", label: "Check" },
+  { id: "address", label: "Your address" },
   { id: "validators", label: "Validators" },
 ];
-const tabFromHash = (): Tab => (location.hash.replace("#", "").split("?")[0] === "validators" ? "validators" : "check");
+const tabFromHash = (): Tab => {
+  const t = location.hash.replace("#", "").split("?")[0];
+  return t === "validators" || t === "address" ? t : "check";
+};
 
 export function App() {
   const [tab, setTab] = useState<Tab>(tabFromHash);
@@ -30,10 +38,11 @@ export function App() {
             <a key={t.id} href={`#${t.id}`} aria-current={tab === t.id ? "page" : undefined}>{t.label}</a>
           ))}
         </nav>
+        <div className="topright"><WalletButton /></div>
       </header>
-      <main>{tab === "check" ? <Check key={hash} /> : <ValidatorList />}</main>
+      <main>{tab === "check" ? <Check key={hash} /> : tab === "address" ? <Suspense fallback={<p className="muted">Loading the key tools…</p>}><AddressView /></Suspense> : <ValidatorList />}</main>
       <footer className="foot">
-        <span>Reads the public chain only. The server holds no keys.</span>
+        <span>The server holds no keys. Its one write path relays a sealing account's two signed transactions, and nothing else.</span>
         <a href="https://github.com/nftkingiii/letterplate">Source</a>
       </footer>
     </div>

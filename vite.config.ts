@@ -24,7 +24,18 @@ export default defineConfig({
       allow: [here("./src"), here("./index.html"), here("./public"), here("./node_modules")],
       deny: [".env", ".env.*", "*.{crt,pem,key}", "**/.keys/**", "**/.git/**", "**/receipts/**", "**/PROJECT_STATE.md", "**/HACK_EVENT_GATE.json"],
     },
-    proxy: { "/api": "http://localhost:8787" },
+    proxy: {
+      "/api": "http://localhost:8787",
+      // Development only, for the official QoreX wallet mock used in end-to-end
+      // tests: the mock runs inside the page, so its testnet REST calls need a
+      // same-origin path. The real QoreX extension calls the chain itself.
+      // Never part of the production server.
+      "/qore-rest": {
+        target: "https://api-testnet.qore.host",
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/qore-rest/, ""),
+      },
+    },
   },
   preview: { host: "localhost", cors: false, proxy: { "/api": "http://localhost:8787" } },
 });

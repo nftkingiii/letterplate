@@ -19,8 +19,20 @@ before(async () => {
 });
 after(() => proc?.kill());
 
-test("read-only: only GET and HEAD", async () => {
+test("only GET and HEAD, except POST to the relay", async () => {
   for (const method of ["POST", "PUT", "DELETE", "PATCH"]) assert.equal((await fetch(`${BASE}/api/resolve`, { method })).status, 405, method);
+  for (const method of ["PUT", "DELETE"]) assert.equal((await fetch(`${BASE}/api/relay`, { method })).status, 405, method);
+});
+
+test("the relay refuses anything that is not a sealing-account transaction, before the chain", async () => {
+  const post = (body, type = "application/json") => fetch(`${BASE}/api/relay`, { method: "POST", headers: { "content-type": type }, body });
+  assert.equal((await post("{}", "text/plain")).status, 415);
+  assert.equal((await post("not json")).status, 400);
+  assert.equal((await post(JSON.stringify({ txBytes: "***" }))).status, 400);
+  const res = await post(JSON.stringify({ txBytes: Buffer.from([1, 2, 3, 4]).toString("base64") }));
+  assert.equal(res.status, 400);
+  assert.match((await res.json()).error, /^Refused:/);
+  assert.equal((await post(JSON.stringify({ txBytes: "A".repeat(40000) }))).status, 413);
 });
 
 test("bad parameters are refused before touching the chain", async () => {
@@ -28,6 +40,8 @@ test("bad parameters are refused before touching the chain", async () => {
     assert.equal((await fetch(`${BASE}/api/resolve?address=${encodeURIComponent(a)}`)).status, 400, a);
   }
   assert.equal((await fetch(`${BASE}/api/validators?network=devnet`)).status, 400);
+  assert.equal((await fetch(`${BASE}/api/account?address=qor1x`)).status, 400);
+  assert.equal((await fetch(`${BASE}/api/tx?hash=nothex`)).status, 400);
   assert.equal((await fetch(`${BASE}/api/nope`)).status, 404);
 });
 

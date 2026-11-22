@@ -78,6 +78,49 @@ button { font: 600 16px var(--sans); cursor: pointer; border-radius: var(--radiu
 
 .foot { display: flex; justify-content: space-between; gap: 16px; padding: 18px 32px; border-top: 1px solid var(--line); color: var(--text-3); font-size: 13px; }
 
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; padding: 11px 20px; font-size: 15px; background: var(--door-3); color: var(--text); border: 1px solid var(--line); }
+.btn:hover { border-color: var(--text-3); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn.brass { background: var(--brass); color: var(--brass-ink); border-color: transparent; }
+.btn.brass:hover { filter: brightness(1.06); }
+.btn.ghost { background: transparent; }
+.btn.small { padding: 7px 14px; font-size: 14px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.small { font-size: 13px; }
+.stack { display: grid; gap: 14px; justify-items: start; }
+.stack > * { margin: 0; }
+.stack h2 { font-size: 21px; letter-spacing: -0.01em; }
+.stack p { color: var(--text-2); }
+
+/* Wallet in the top bar */
+.topright { margin-left: auto; }
+.walletbox { position: relative; }
+.walletchip { display: inline-flex; align-items: center; gap: 8px; background: var(--door-2); color: var(--text); border: 1px solid var(--line); padding: 7px 14px; border-radius: 999px; font: 500 14px var(--sans); }
+.walletchip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yes); }
+.tag { font-size: 12px; color: var(--brass); border: 1px solid var(--brass); border-radius: 999px; padding: 1px 8px; }
+.walletmenu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 10; width: min(360px, 86vw); background: var(--door-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; display: grid; gap: 10px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35); }
+.walletmenu p { margin: 0; color: var(--text-2); font-size: 14px; }
+.walletmenu code { font-size: 13px; word-break: break-all; }
+
+/* Your address */
+.flow { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+.steps { list-style: none; margin: 0; padding: 18px; background: var(--door-2); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 14px; }
+.steps li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; color: var(--text-3); }
+.steps .num { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 13px; }
+.steps li.current { color: var(--text); }
+.steps li.current .num { border-color: var(--brass); color: var(--brass); }
+.steps li.done { color: var(--text-2); }
+.steps li.done .num { background: var(--yes); border-color: var(--yes); color: var(--door); }
+.panel { background: var(--door-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 18px; }
+.field { display: grid; gap: 6px; font-size: 14px; color: var(--text-2); }
+.field input { font: 15px var(--sans); color: var(--text); background: var(--door); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; min-width: 0; }
+.field input:focus { outline: 2px solid var(--brass); outline-offset: 1px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+.alt { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 10px; justify-items: start; }
+.alt summary { cursor: pointer; color: var(--text-2); }
+.receipts { margin: 0; padding: 14px 0 0 18px; border-top: 1px solid var(--line); color: var(--text-2); font-size: 14px; display: grid; gap: 4px; }
+
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .verdict { animation: none; } }
 @media (max-width: 640px) {
@@ -88,5 +131,8 @@ button { font: 600 16px var(--sans); cursor: pointer; border-radius: var(--radiu
   .facts { grid-template-columns: 1fr; gap: 2px; }
   .facts dd { margin-bottom: 8px; }
   .table th:nth-child(2), .table td:nth-child(2) { display: none; }
+  .flow { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+  .topright { margin-left: 0; }
   .foot { padding: 16px; flex-direction: column; }
 }
