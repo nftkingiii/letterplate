@@ -57,6 +57,7 @@ Public nodes prune old blocks (testnet keeps blocks from 8,790,799 onwards today
 | Real addresses (testnet, 21 Nov 2026) | `GET /api/resolve` | Accounts with registry keys resolve to themselves with their key fingerprint; accounts without resolve to "cannot receive" |
 | Real validators | `GET /api/validators` | Mainnet 0 of 8, testnet 0 of 4 can receive |
 | Your address, end to end (22 Nov 2026) | Driven by the official QoreX wallet mock, a test double that signs for real on testnet | A new wallet went from "cannot receive" to "can receive, through its sealing account" (table below) |
+| Your address, real QoreX on the live site (23 Nov 2026) | The builder's own QoreX extension on https://letterplate.up.railway.app | The same flow with the real wallet: four transactions, all code 0, and the live resolver answers "bound" (table below) |
 
 ### QoreX wallet-mock run (22 November 2026)
 
@@ -69,7 +70,20 @@ Test wallet `qor1hhcs5cvcyl2sqrcfgaydla57fqyxl5z7yl336l` (labelled "test wallet"
 | Publish its ML-KEM-1024 key and `letterplate/1 sealer <owner>` | browser, via relay | `FF49FF108FFE9B81D699C335A3E91F7CF714703F60C4D89788E2836CD954ED63` | 10532054 | yes |
 | `letterplate/1 bind <sealing account>` | QoreX mock | `80193FE70B911D1253CF6C58BD4B8E90B3E3D30131F4566619E7AE214ECFB3F8` | 10532098 | yes |
 
-All code 0. Read back from the chain: the sealing account's encryption key is in the registry and its signing key is `hybrid` with `possession_proven: true`. `GET /api/resolve` for the test wallet answers `bound`, sealing to `qor1qm2kez…cdnul` (key SHA3-256 `742e8fe1…`), with no refused records. The run with the real QoreX extension is still to do.
+All code 0. Read back from the chain: the sealing account's encryption key is in the registry and its signing key is `hybrid` with `possession_proven: true`. `GET /api/resolve` for the test wallet answers `bound`, sealing to `qor1qm2kez…cdnul` (key SHA3-256 `742e8fe1…`), with no refused records.
+
+### Real QoreX wallet on the live site (23 November 2026)
+
+The builder's own QoreX extension, on the deployed site. Owner `qor12cjvg5ruayj4npett85pl82x567rj8c8fyj9nk`, sealing account `qor10jjugjayusta0vfqqz5wrlkdlwudjlqm0eslcr`.
+
+| Step | Signed by | Tx hash | Block | Hybrid |
+|---|---|---|---|---|
+| Fund the sealing account (0.3 QOR) | QoreX | `E3551E08E2AA716497F86E242C2A7462D55496A8B5EB1BDA9EFE4B806B6375B4` | 10621458 | yes |
+| Register its ML-DSA-87 key (proof of possession) | browser, via relay | `43C85D71BD69A8C76E4E672751C5140E6DF567730578E5723F396F096194AE79` | 10621464 | classical only, as the chain requires for this first transaction |
+| Publish its ML-KEM-1024 key and `letterplate/1 sealer <owner>` | browser, via relay | `59D5B80C3E912B7CB1035E7CD85C1A06D7987FA552484B24B79297AB83B0B156` | 10621469 | yes |
+| `letterplate/1 bind <sealing account>` | QoreX | `2AF3ACFB0C0707BF5732B0380FEF4FC617E06AF06639A5AC706FAA5602746E4A` | 10621484 | yes |
+
+All code 0, the whole flow in under a minute (15:20:47 to 15:21:25 UTC). Read back from the chain: the sealing account's encryption key is in the registry, and its signing key is `hybrid` with `possession_proven: true`. `GET https://letterplate.up.railway.app/api/resolve?address=qor12cjvg…fyj9nk` answers `bound`, sealing to `qor10jjug…eslcr` (key SHA3-256 `da02385b…`), with no refused records.
 
 ## Run it
 

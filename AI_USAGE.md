@@ -26,6 +26,7 @@ After finishing [Quorate](https://github.com/nftkingiii/quorate) for this fest, 
 - Chose Letterplate over the other candidates, approved the name, and asked to build it.
 - Checked the real QoreX extension for a way to register an encryption key (there is none). That turned a hypothesis into a finding.
 - Created the fest project page, and approved every push and the deploy.
+- Ran the flow with the real QoreX extension on the live site and recorded it. The agent read the addresses from the recording and verified every transaction on chain.
 
 ## What the AI generated
 
@@ -53,8 +54,8 @@ The agent wrote no cryptography. Keys, encryption and hybrid signing come from t
 
 - **No secrets in the repository or the conversation.** The test wallet's recovery phrase and the test backup passphrase live in `.keys/`, which git ignores; the agent checked that nothing sensitive is tracked before each commit.
 - **No action without a yes.** Pushes, the deploy and the project page waited for the human. Everything ran on testnet with valueless tokens.
-- **Honest labels.** The end-to-end run used the official QoreX wallet mock, and the README and the app say so. The run with the real QoreX extension is listed as still to do until it happens.
+- **Honest labels.** The first end-to-end run used the official QoreX wallet mock, and the README and the app say so. The builder then ran the same flow with the real QoreX extension on the live site; the README lists both runs separately.
 
 ## What remains human work
 
-Whether encrypted-app builders and QoreX users want this, and the run with a real wallet.
+Whether encrypted-app builders and QoreX users want this.
