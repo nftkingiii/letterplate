@@ -52,7 +52,7 @@ Public nodes prune old blocks (testnet keeps blocks from 8,790,799 onwards today
 
 | What | Where | Result |
 |---|---|---|
-| Scaffold | `npx create-qorechain-dapp letterplate --template fullstack-web` (0.14.0) | The first commit is the untouched template |
+| Scaffold | `npx create-qorechain-dapp letterplate --template fullstack-web --network testnet` (0.14.0) | The first commit, [c875545](https://github.com/nftkingiii/letterplate/commit/c875545), is the untouched template. A scaffolder is not left in the dependencies, so the fest checks this kit by hand |
 | Tests | `npm test` | 24/24 on Node 22: every resolver status, rebinding, a sealing account that cannot be borrowed, refused records, pruned history, failed reads, the relay's gate and rate limit, and the server's guard rails |
 | Real addresses (testnet, 21 Nov 2026) | `GET /api/resolve` | Accounts with registry keys resolve to themselves with their key fingerprint; accounts without resolve to "cannot receive" |
 | Real validators | `GET /api/validators` | Mainnet 0 of 8, testnet 0 of 4 can receive |
