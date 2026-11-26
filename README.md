@@ -1,8 +1,13 @@
 # Letterplate
 
+[![Built on QoreChain](https://build.qorechain.io/badge/letterplate.svg)](https://build.qorechain.io/p/letterplate)
+
 Give any QoreChain account an address it can receive post-quantum sealed messages at, and check where to seal for any address.
 
 Built for Build Before Q-Day, the QoreChain Developer Fest, in the Quantum Pass category.
+
+- Demo video (2:09): https://youtu.be/ySMY5YnfJZk
+- Live app: https://letterplate.up.railway.app
 
 ## The problem
 
@@ -108,6 +113,7 @@ With an AI coding agent (Claude Code). What the AI wrote, what the builder decid
 - `@cosmjs/proto-signing`, `cosmjs-types`, [`@noble/hashes`](https://github.com/paulmillr/noble-hashes) and `buffer`.
 - The sealing account, its key backup, the relay and the QoreX wallet code are adapted from the same builder's [Quorate](https://github.com/nftkingiii/quorate), built earlier in this fest. Letterplate uses its own derivation labels and backup format, so keys from the two apps never mix.
 - Schibsted Grotesk and JetBrains Mono (SIL Open Font License).
+- The demo video's narration is synthesised with [Kokoro](https://github.com/hexgrad/kokoro) (Apache-2.0), and the film was rendered with Playwright and FFmpeg.
 
 ## Licence
 

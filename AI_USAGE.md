@@ -26,6 +26,7 @@ After finishing [Quorate](https://github.com/nftkingiii/quorate) for this fest, 
 - Chose Letterplate over the other candidates, approved the name, and asked to build it.
 - Checked the real QoreX extension for a way to register an encryption key (there is none). That turned a hypothesis into a finding.
 - Created the fest project page, and approved every push and the deploy.
+- Approved the demo video's script, and uploaded the film.
 - Ran the flow with the real QoreX extension on the live site and recorded it. The agent read the addresses from the recording and verified every transaction on chain.
 
 ## What the AI generated
@@ -37,6 +38,7 @@ After finishing [Quorate](https://github.com/nftkingiii/quorate) for this fest, 
 | Web app | `src/*`: the Check, Your address and Validators tabs, the QoreX wallet calls, the sealing key and its backup |
 | Tests | `test/*.test.mjs`: 24 tests |
 | Writing | `README.md`, this file, the commit messages, and the text for the fest project page |
+| Demo video | The script (approved by the builder before any build), every scene, rendered frame by frame from code over captures of the live site and the builder's own screen recording. The narration is a synthetic voice (Kokoro, run offline). The recording's passphrase entry is cut and a browser password prompt showing the builder's email is covered, both labelled on screen |
 
 The agent wrote no cryptography. Keys, encryption and hybrid signing come from the official QoreChain kits and the browser's Web Crypto API.
 
